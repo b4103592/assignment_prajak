@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20
+class ComposerStaticInit2b87e4126b30e4e5bf6cf51b13831ab1
 {
     public static $prefixLengthsPsr4 = array (
         'Z' => 
@@ -23,6 +23,7 @@ class ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20
             'Zend\\Escaper\\' => 13,
             'Zend\\Config\\' => 12,
             'Zend\\ComponentInstaller\\' => 24,
+            'Zend\\Cache\\' => 11,
             'ZF\\DevelopmentMode\\' => 19,
             'ZF\\ComposerAutoloading\\' => 23,
         ),
@@ -102,6 +103,10 @@ class ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-component-installer/src',
         ),
+        'Zend\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-cache/src',
+        ),
         'ZF\\DevelopmentMode\\' => 
         array (
             0 => __DIR__ . '/..' . '/zfcampus/zf-development-mode/src',
@@ -135,8 +140,8 @@ class ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdd39fb887945ecb9e7b0b0b9f075ae20::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2b87e4126b30e4e5bf6cf51b13831ab1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2b87e4126b30e4e5bf6cf51b13831ab1::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

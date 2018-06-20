@@ -2,10 +2,14 @@
 
 <h2>ASSIGNMENT #1</h2>
 <?php
-    foreach ($this->answer_1 as $key => $value) {
-        echo $value."<br>";
+    if($this->set_cache){
+        echo "<u><b>*** Answer X = ".$this->answer_1."</b></u>"; 
+    }else{
+        foreach ($this->answer_1 as $key => $value) {
+            echo $value."<br>";
+        }
+        echo "<u><b>*** Answer X = ".$this->answer_1[sizeof($this->answer_1) - 1]."</b></u>"; 
     }
-    echo "<u><b>*** Answer X = ".$this->answer_1[sizeof($this->answer_1) - 1]."</b></u>"; 
 ?>
 
 <h2>ASSIGNMENT #2</h2>
@@ -15,8 +19,13 @@
 
 <h2>ASSIGNMENT #3</h2>
 <?php
-    foreach ($this->answer_3 as $key => $value) {
-        echo $value."<br>";
+    if($this->set_cache){
+        echo "<u><b>*** Answer X = ".$this->answer_3."</b></u>"; 
+    }else{
+        foreach ($this->answer_3 as $key => $value) {
+            echo $value."<br>";
+        }
+        echo "<u><b>*** Answer X = ".$this->answer_3[sizeof($this->answer_3) - 1]."</b></u>"; 
     }
-    echo "<u><b>*** Answer X = ".$this->answer_3[sizeof($this->answer_3) - 1]."</b></u>"; 
+
 ?>

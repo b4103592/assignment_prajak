@@ -7,21 +7,63 @@
 namespace Test\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Cache\StorageFactory;
+
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {       
-        $answer_1 = $this->test_1();
-        $answer_2 = $this->test_2();
-        $answer_3 = $this->test_3();        
+        //Cal set_cache function
+        $cache = $this->set_cache();        
+        $key_1    = 'answer_1';
+        $key_2    = 'answer_2';
+        $key_3    = 'answer_3';
+        $answer_1 = $cache->getItem($key_1);
+        $answer_2 = $cache->getItem($key_2);
+        $answer_3 = $cache->getItem($key_3);
+        
+//        $answer_1 = $answer_2 = $answer_3 = false;
+        
+        $set_cache = true;
+        if(!$answer_1){
+            $answer_1 = $this->test_1();
+            $set_cache = false;
+        }
+        if(!$answer_2){
+            $answer_2 = $this->test_2();
+        } 
+        if(!$answer_3){
+            $answer_3 = $this->test_3();
+        }     
+        
+        
         $view = new ViewModel(array(
             'answer_1' => $answer_1,
             'answer_2' => $answer_2,
             'answer_3' => $answer_3,
+            'set_cache'=> $set_cache 
         ));
         $view->setTemplate('test/index/index');
         return $view;
     }
+    
+    public function set_cache()
+    {
+        //Setting cache
+        $cache = \Zend\Cache\StorageFactory::factory(
+                    array(
+                            'adapter' => array(
+                            'name' => 'filesystem'
+                        ),
+                        'plugins' => array(
+                                'exception_handler' => array(
+                                'throw_exceptions' => false
+                            ),
+                        )
+                    )
+                );  
+        return $cache;        
+    }    
     
     public function test_1()
     {
@@ -33,9 +75,17 @@ class IndexController extends AbstractActionController
         //23 = 15+(2*4) ***Answer X = 23        
         $val = 3;
         for ($i=0; $i<=5; $i++){
-            $val=$val+(2*$i);
             $test_1_result[] = $val; 
+            $val=$val+(2*$i);
         }        
+        
+        //Cal set_cache function
+        $cache = $this->set_cache();        
+        $key   = 'answer_1';
+        
+        //Create cache answer_1
+        $cache->setItem($key, $val);      
+        
         return $test_1_result;
     }  
     
@@ -47,7 +97,15 @@ class IndexController extends AbstractActionController
         //Y + 24 = 79
         //Y = 79-24
         //Y = 55 ***Answer Y = 55        
-        $y = 99-(10*2)-24;        
+        $y = 99-(10*2)-24;  
+        
+        //Cal set_cache function
+        $cache = $this->set_cache();        
+        $key    = 'answer_2';
+        
+        //Create cache answer_2
+        $cache->setItem($key, $y);  
+        
         return $y;        
     }   
     
@@ -60,10 +118,19 @@ class IndexController extends AbstractActionController
         // 4 = 4325
         // 5 = 54325 ***Answer X = 54325        
         $val = 5;
-        for ($i=2; $i<=6; $i++){         
-            $test_3_result[] = $val;
+        for ($i=2; $i<=5; $i++){  
             $val=$i.$val;
+            $test_3_result[] = $val;
+            
         }         
+        
+        //Cal set_cache function
+        $cache = $this->set_cache();        
+        $key   = 'answer_3';
+        
+        //Create cache answer_3
+        $cache->setItem($key, $val);           
+        
         return $test_3_result;        
     }     
     
